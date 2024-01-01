@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;500&family=Montserrat:wght@500;600&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components {
+           /* width */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 3px;
+        }
+    
+        /* Track */
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+            border-radius: 10px;
+        }
+    
+        /* Handle */
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background: #444;
+        }
+    
+        /* Handle on hover */
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+}
+
