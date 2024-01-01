@@ -91,7 +91,7 @@ function NotePage() {
       >
         {body}
       </textarea>
-      <div className="w-full mt-auto flex items-center justify-end gap-8 text-2xl select-none pr-7">
+      <div className="w-full mt-auto flex items-center justify-end gap-8 text-2xl select-none pr-7 p-4 bg-zinc-900">
         <div className="cursor-pointer" onClick={handleDelete}>
           <RiDeleteBin5Line />
         </div>

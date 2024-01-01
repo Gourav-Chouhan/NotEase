@@ -39,6 +39,12 @@ function Homepage() {
         );
       })}
 
+      {/* if no notes is present */}
+      {sortedNotes.length === 0 && (
+        <div className="text-center absolute w-full mt-1">
+          Click on plus icon to add a new note
+        </div>
+      )}
       <div
         className="text-6xl text-amber-400 fixed	bg-zinc-800 rounded-full right-10 bottom-10 lg:right-64"
         onClick={() => addNewNote()}
