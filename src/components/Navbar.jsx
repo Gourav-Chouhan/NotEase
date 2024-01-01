@@ -3,11 +3,22 @@ import logo from "../assets/logo.png";
 import { useNavigate } from "react-router-dom";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { IoDownloadOutline } from "react-icons/io5";
+import { useDispatch } from "react-redux";
+import Modal from "../components/Modal";
 
 function Navbar() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
+  const handleModalChange = (confirm) => {
+    if (confirm) dispatch({ type: "DELETE_ALL" });
+    setModalOpen(false);
+  };
+  const handleDeleteAll = () => {
+    setModalOpen(true);
+  };
   return (
     <nav className="flex items-center justify-between flex-wrap p-6 text-white h-[10svh] lg:px-64 relative z-50 ">
       <div
@@ -17,7 +28,7 @@ function Navbar() {
         }}
       >
         <img src={logo} className="w-100 h-10 mr-2 invert" alt="Logo" />
-        NoteEase
+        <h1 className="text-2xl">NoteEase</h1>
       </div>
       <Hamburger isOpen={isOpen} setIsOpen={setIsOpen} />
       <div
@@ -26,17 +37,29 @@ function Navbar() {
         }`}
       >
         <div className="text-sm lg:flex-grow bg-zinc-900 p-5 gap-6 rounded-lg lg:flex lg:items-center lg:justify-end">
-          <div className="flex items-center gap-1 cursor-pointer hover:outline px-4 py-2 rounded-lg">
+          <div
+            className="flex items-center gap-1 cursor-pointer hover:outline px-4 py-2 rounded-lg"
+            onClick={handleDeleteAll}
+          >
             <RiDeleteBin5Line />
             Delete All
           </div>
 
-          <div className="flex items-center gap-1 cursor-pointer hover:outline px-4 py-2 rounded-lg">
+          <div
+            className="flex items-center gap-1 cursor-pointer hover:outline px-4 py-2 rounded-lg"
+            onClick={() => dispatch({ type: "LOAD_SAMPLE" })}
+          >
             <IoDownloadOutline />
             Load sample Data
           </div>
         </div>
       </div>
+      {modalOpen && (
+        <Modal
+          text="Are you sure you want to delete all the notes"
+          handleChange={handleModalChange}
+        />
+      )}
     </nav>
   );
 }
