@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import Modal from "../components/Modal";
 
 import { GiCheckMark } from "react-icons/gi";
 import { AiOutlineReload } from "react-icons/ai";
@@ -32,6 +33,7 @@ function NotePage() {
   const note = notes[index];
   const [title, setTitle] = useState(note.title);
   const [body, setBody] = useState(note.body);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleSave = () => {
     const currentDate = new Date(Date.now());
@@ -55,24 +57,34 @@ function NotePage() {
     setTitle(note.title);
     setBody(note.body);
   };
+
+  const handleModalChange = (confirm) => {
+    if (confirm) {
+      dispatch({ type: "DELETE_NOTE", payload: { id } });
+      navigate("/");
+    }
+    setModalOpen(false);
+  };
   const handleDelete = () => {
-    dispatch({ type: "DELETE_NOTE", payload: { id } });
-    navigate("/");
+    setModalOpen(true);
   };
   return (
     <div className="text-white p-5 mx-auto lg:w-2/3 flex flex-col  min-h-[85svh]">
       <textarea
         rows={1}
-        className="text-3xl font-bold bg-transparent w-full resize-none outline-none my-4"
+        className="text-3xl font-bold bg-transparent w-full resize-none outline-none my-4 lg:custom-scrollbar"
         placeholder="Enter the title of the note..."
         value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={(e) => {
+          const val = e.target.value;
+          if (val.length <= 30) setTitle(val);
+        }}
       >
         {title}
       </textarea>
       <textarea
         rows={24}
-        className="bg-transparent w-full resize-none outline-none "
+        className="bg-transparent w-full resize-none outline-none lg:custom-scrollbar"
         placeholder="Start noting..."
         value={body}
         onChange={(e) => setBody(e.target.value)}
@@ -90,6 +102,12 @@ function NotePage() {
           <GiCheckMark />
         </div>
       </div>
+      {modalOpen && (
+        <Modal
+          text="Are you sure you want to delete all the notes"
+          handleChange={handleModalChange}
+        />
+      )}
     </div>
   );
 }
