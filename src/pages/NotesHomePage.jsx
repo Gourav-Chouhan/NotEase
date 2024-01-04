@@ -16,11 +16,9 @@ function Homepage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const notes = useSelector((state) => state.notes);
-  const sortedNotes = notes.slice().sort((b, a) => a.timestamp - b.timestamp);
 
   const addNewNote = () => {
     const newIndex = notes.length === 0 ? 0 : notes[notes.length - 1].id + 1;
-    console.log(newIndex);
     dispatch({ type: "ADD_NEW_NOTE", payload: { newIndex } });
     navigate(`/notes/${newIndex}`);
   };
@@ -45,11 +43,11 @@ function Homepage() {
       .fill()
       .map(() => []);
 
-    sortedNotes.forEach((e, index) => {
+    notes.forEach((e, index) => {
       tempNoteColumns[index % colCount].push(e);
     });
     setNoteColumns(tempNoteColumns);
-  }, [colCount]);
+  }, [colCount, notes]);
   return (
     <div className="text-white  max-h-[90svh] overflow-auto grid grid-cols-2 gap-4 p-4 relative lg:w-3/4 mx-auto lg:grid-cols-3 lg:custom-scrollbar z-10 xl:grid-cols-4">
       {noteColumns.map((colArray, colArrayIndex) => {
@@ -84,7 +82,7 @@ function Homepage() {
       })}
 
       {/* if no notes is present */}
-      {sortedNotes.length === 0 && (
+      {notes.length === 0 && (
         <div className="text-center absolute w-full mt-1">
           Click on plus icon to add a new note
         </div>
