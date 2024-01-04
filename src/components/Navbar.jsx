@@ -20,9 +20,9 @@ function Navbar() {
     setModalOpen(true);
   };
   return (
-    <nav className="flex items-center justify-between flex-wrap p-6 text-white h-[10svh] lg:px-64 relative z-50 ">
+    <nav className="flex items-center justify-between  flex-wrap p-6  text-white h-[10svh] lg:px-64 relative z-50 ">
       <div
-        className="flex items-center flex-shrink-0 text-white mr-6 lg:mr-72 "
+        className="flex items-center flex-shrink-0  text-white mr-6 "
         onClick={() => {
           navigate("/");
         }}
@@ -32,11 +32,11 @@ function Navbar() {
       </div>
       <Hamburger isOpen={isOpen} setIsOpen={setIsOpen} />
       <div
-        className={`w-full ml-auto  block flex-grow lg:flex lg:items-center lg:justify-end lg:w-auto ${
+        className={`w-full ml-auto   block flex-grow lg:flex lg:items-center lg:justify-end lg:w-auto ${
           isOpen ? "block" : "hidden"
         }`}
       >
-        <div className="text-sm lg:flex-grow bg-zinc-900 p-5 gap-6 rounded-lg lg:flex lg:items-center lg:justify-end">
+        <div className="text-sm   bg-zinc-900  gap-6 rounded-lg lg:flex lg:items-center lg:justify-end">
           <div
             className="flex items-center gap-1 cursor-pointer hover:outline px-4 py-2 rounded-lg"
             onClick={handleDeleteAll}
