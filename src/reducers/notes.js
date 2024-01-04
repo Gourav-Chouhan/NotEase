@@ -1,9 +1,7 @@
 import { notes } from "../assets/dummyData";
-const savedData = localStorage.getItem("notes");
+const savedData = JSON.parse(localStorage.getItem("notes"));
 const initialState = savedData
-  ? JSON.parse(savedData).filter(
-      (e) => Object.hasOwn(savedData, "date") && e.title && e.body
-    )
+  ? savedData.filter((e) => Object.hasOwn(e, "timestamp"))
   : [];
 
 export const notesReducer = (state = initialState, action) => {
@@ -18,7 +16,6 @@ export const notesReducer = (state = initialState, action) => {
             ? { ...note, ...data, id: parseInt(data.id) }
             : note
         )
-        .filter((e) => Object.hasOwn(savedData, "date") && e.title && e.body)
         .slice()
         .sort((b, a) => a.timestamp - b.timestamp);
       localStorage.setItem("notes", JSON.stringify(updatedNotes));
