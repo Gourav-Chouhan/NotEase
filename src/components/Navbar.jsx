@@ -17,6 +17,7 @@ function Navbar() {
     setModalOpen(false);
   };
   const handleDeleteAll = () => {
+    setIsOpen(false);
     setModalOpen(true);
   };
   return (
@@ -47,7 +48,10 @@ function Navbar() {
 
           <div
             className="flex items-center gap-1 cursor-pointer hover:outline px-4 py-2 rounded-lg"
-            onClick={() => dispatch({ type: "LOAD_SAMPLE" })}
+            onClick={() => {
+              dispatch({ type: "LOAD_SAMPLE" });
+              setIsOpen(false);
+            }}
           >
             <IoDownloadOutline />
             Load sample Data

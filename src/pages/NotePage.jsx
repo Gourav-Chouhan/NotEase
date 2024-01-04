@@ -15,33 +15,12 @@ function NotePage() {
   const index = notes.findIndex((note) => {
     return note.id === parseInt(id);
   });
-  if (index === -1) {
-    return (
-      <div className="flex flex-col items-center mt-32">
-        <div className="text-white p-5 text-center">
-          The note you are looking for does not exist or has been deleted!!!
-        </div>
-        <button
-          className="text-white border px-5 py-2 cursor-pointer"
-          onClick={() => navigate("/")}
-        >
-          Home
-        </button>
-      </div>
-    );
-  }
-  const note = notes[index];
+  const note = index !== -1 ? notes[index] : {};
   const [title, setTitle] = useState(note.title);
   const [body, setBody] = useState(note.body);
   const [modalOpen, setModalOpen] = useState(false);
 
   const handleSave = () => {
-    const currentDate = new Date(Date.now());
-    const monthName = new Intl.DateTimeFormat("en-US", {
-      month: "long",
-    }).format(currentDate);
-    const formattedDate = `${monthName} ${currentDate.getDate()}, ${currentDate.getFullYear()}`;
-
     dispatch({
       type: "UPDATE_NOTE",
       payload: {
@@ -68,6 +47,22 @@ function NotePage() {
   const handleDelete = () => {
     setModalOpen(true);
   };
+
+  if (index === -1) {
+    return (
+      <div className="flex flex-col items-center mt-32">
+        <div className="text-white p-5 text-center">
+          The note you are looking for does not exist or has been deleted!!!
+        </div>
+        <button
+          className="text-white border px-5 py-2 cursor-pointer"
+          onClick={() => navigate("/")}
+        >
+          Home
+        </button>
+      </div>
+    );
+  }
   return (
     <div className="text-white p-5 mx-auto lg:w-2/3 flex flex-col  min-h-[85svh]">
       <textarea
